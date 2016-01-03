@@ -74,7 +74,19 @@ void methodeGauss(int matrice[], int taille)
         echangerLigne(matrice, taille, 0, posPivot);
     }
 
-    return;
+    for(int ligne = 1 ; ligne < taille ; ligne++)
+    {
+        for(int colonne = 1 ; colonne < taille ; colonne++)
+        {
+            matrice[ligne * (taille + 1) + colonne] -= (matrice[ligne * (taille + 1)] / matrice[ligne * (taille + 1)]) * matrice[(ligne - 1) * (taille + 1) + colonne];
+        }
+        matrice[ligne * (taille + 1)] = 0;
+    }
+
+    if(taille > 1)
+    {
+        methodeGauss(matrice, taille - 1);
+    }
 }
 
 void echangerLigne(int matrice[], int taille, int a, int b)
